@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header class="header-el">
+      <div class="container">
+        <div class="wrapper-header">
+          <div class="wrapper-logo">
+            <a class="logo-link" href="#">
+              <img src="./logo.png" alt="logo" />
+              <span class="text-logo">Медична клініка</span>
+            </a>
+          </div>
+          <div class="wrapper-button">
+            <button type="button" class="btn btn-primary btn-login">
+              Вхід
+            </button>
+            <button type="button" class="btn btn-success hide btn-create-card">
+              Створити візит
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="container">
+          <h2 class="title-filter">Фільтрація візитів</h2>
+          <div class="filter-form-wrapper">
+            <input
+              type="text"
+              class="form-control input-search"
+              id="inputFilter"
+              placeholder="Ведіть заголовок або зміст візиту"
+            />
+            <select class="form-select status" aria-label="Default select example">
+        
+              <option value="status" selected disabled hidden>Статус</option>
+              <option value="all">Всі</option>
+              <option value="open">Відкрито</option>
+              <option value="done">Завершено</option>
+            </select>
+            <select class="form-select urgency" aria-label="Default select example">
+              <option value="default" selected disabled hidden>Терміновість візиту</option>
+              <option value="all">Всі</option>
+              <option value="high">Невідкладна</option>
+              <option value="normal">Пріоритетна</option>
+              <option value="low">Звичайна</option>
+            </select>
+            <button type="button" class="btn btn-primary btn-filter">Пошук</button>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container">
+          <div class="no-items">
+            <h3>Элементы не добавлены</h3>
+          </div>
+          <div class="cards"></div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-bg hide">
+      <div class="modal-login">
+        <form>
+          <div class="mb-3">
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Email address"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Password"
+            />
+          </div>
+          <input id="submitLogin" type="submit" class="btn btn-primary mt-4" />
+        </form>
+      </div>
+    </div>
+    <script src="./script/login.js"></script>
+    <script src="./script/createModal.js"></script>
+    <script src="./script/filter.js"></script>
+    <script src="./script/script.js"></script>
+    <script src="./script/Modal.js"></script>
+    <script src="./script/CardiologistModal.js"></script>
+    <script src="./script/DentistModal.js"></script>
+    <script src="./script/TherapistModal.js"></script>
+    <script src="./script/getAllPost.js"></script>
+  </body>
+</html>
