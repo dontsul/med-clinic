@@ -174,7 +174,7 @@ class CardiologistModal extends Modal {
         .then((data) => {
           allCards = [...allCards, data];
           const id = data.id;
-
+          checkPosts();
           // renderCardFn(id);
           fetch(`https://ajax.test-danit.com/api/v2/cards/${id}`, {
             headers: {
@@ -286,8 +286,10 @@ class CardiologistModal extends Modal {
           },
         }).then((res) => {
           if (res.status === 200) {
+          
             closeIconWrapCard.parentNode.remove();
             allCards = allCards.filter((obj) => obj.id !== this.id);
+            checkPosts();
           }
         });
       }
@@ -302,14 +304,11 @@ class CardiologistModal extends Modal {
     editIconWrap.title = 'Редагувати';
     editIconWrap.append(editIcon);
     editIconWrap.addEventListener("click", (e) => {
-      // console.log(e.currentTarget.parentNode.id);
+
       allCards.forEach(card => {
         if(+card.id === +this.id) {
           const selectDoctor = document.querySelector(".doctor-select");
           selectDoctor.value = card.doctor;
-
-          // const selectUrgency = document.querySelector(".selectUrgency");
-          // selectUrgency.value = card.urgency;
         }
       })
 
@@ -335,7 +334,6 @@ class CardiologistModal extends Modal {
         allCards.forEach((elem) => {
           if (elem.id === Number(e.currentTarget.parentNode.id)) {
             card = elem;
-            console.log(card.urgency);
             return;
           }
         });
@@ -523,7 +521,6 @@ class CardiologistModal extends Modal {
       //------------------------------------------------------
       const selectedDoctorValue =
         document.querySelector(".doctor-select").value;
-      console.log(selectedDoctorValue);
       const inputDescriptionValue =
         document.querySelector(".inputDescription").value;
       const inputPurposeValue = document.querySelector(".inputPurpose").value;
@@ -537,10 +534,7 @@ class CardiologistModal extends Modal {
       const inputTransferredDiseasesValue = document.querySelector(
         ".inputTransferredDiseases"
       ).value;
-      console.log(
-        "inputTransferredDiseasesValue",
-        inputTransferredDiseasesValue
-      );
+  
       const inputAgeValue = document.querySelector(".inputAge").value;
       const inputDoctorValue = document.querySelector(".doctor-select").value;
 
@@ -573,14 +567,10 @@ class CardiologistModal extends Modal {
             selectDoctor.nextElementSibling.remove();
           }
 
-          // if (res.status === 200) {
-          //   console.log(res.status);
-          // }
           return res.json();
         })
         .then((data) => {
           const id = data.id;
-          console.log(id);
 
           allCards.forEach((card) => {
             if (+card.id === id) {
@@ -600,8 +590,6 @@ class CardiologistModal extends Modal {
 
           const oldCard = document.getElementById(id);
 
-          // console.log(oldCard);
-          // console.log(oldCard.previousElementSibling);
           new CardiologistModal(
             data.title,
             data.description,
@@ -621,11 +609,7 @@ class CardiologistModal extends Modal {
 
       const modalBgCard = document.querySelector(".modalBgCard");
       modalBgCard.classList.add("hide");
-      const selectDoctor = document.querySelector(".doctor-select");
-      // if (selectDoctor.nextElementSibling !== null) {
-      //   // selectDoctor.value = "default";
-      //   selectDoctor.nextElementSibling.remove();
-      // }
+      // const selectDoctor = document.querySelector(".doctor-select");
     });
 
     selectUrgency.append(optionDefaul, optionHigh, optionNormal, optionLow);

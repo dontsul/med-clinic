@@ -1,3 +1,10 @@
+// const token = "37788c2c-9c1e-40e5-9c81-2b156c10fec9";
+
+let token = '';
+
+
+
+
 function loginForm() {
     const btnLogin = document.querySelector(".btn-login");
     const modalBg = document.querySelector(".modal-bg");
@@ -6,6 +13,7 @@ function loginForm() {
     const submitLogin = document.querySelector("#submitLogin");
     const spinnerWrap = document.createElement("div");
     const btnCreateCard = document.querySelector(".btn-create-card");
+    // const noItems = document.querySelector('.no-items');
     
     btnCreateCard.addEventListener('click', () => {
       const selectDoctor = document.querySelector(".doctor-select");
@@ -54,7 +62,6 @@ function loginForm() {
   
       fetch("https://ajax.test-danit.com/api/v2/cards/login", {
         method: "POST",
-        // Authorization: `Bearer ${token}`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -73,11 +80,22 @@ function loginForm() {
             
             btnCreateCard.classList.remove("hide");
             btnLogin.style.display = "none";
+
+            
+
             return res.text();
           } else {
             spinnerWrap.remove();
             submitLogin.after(incorrectLogin);
           }
+        })
+        .then(tokenData => {
+          token = tokenData;
+          
+          getAllPost();
+
+          // const noItems = document.querySelector('.no-items');
+          // (allCards.length < 0 ? noItems.classList.add('hide') : noItems.classList.remove('hide')) 
         })
         .catch((err) => {
           console.log(err);

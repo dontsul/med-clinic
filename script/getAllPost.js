@@ -8,7 +8,8 @@ async function getAllPost() {
     const data = await res.json();
   
     allCards = data;
-    console.log(allCards);
+    checkPosts();
+
     allCards.forEach((item) => {
       if (item.doctor === "cardiologist") {
         new CardiologistModal(
@@ -49,5 +50,5 @@ async function getAllPost() {
       }
     });
   }
-  getAllPost();
+  // getAllPost();
   

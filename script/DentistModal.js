@@ -135,6 +135,7 @@ class DentistModal extends Modal {
         .then((data) => {
           allCards = [...allCards, data];
           const id = data.id;
+          checkPosts();
           fetch(`https://ajax.test-danit.com/api/v2/cards/${id}`, {
             headers: {
               "Content-Type": "application/json",
@@ -226,8 +227,11 @@ class DentistModal extends Modal {
           },
         }).then((res) => {
           if (res.status === 200) {
+            
             closeIconWrapCard.parentNode.remove();
             allCards = allCards.filter((obj) => obj.id !== this.id);
+            checkPosts();
+
           }
         });
       }
