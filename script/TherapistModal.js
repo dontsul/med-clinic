@@ -62,7 +62,7 @@ class TherapistModal extends Modal {
     optionOpen.value = "open";
     optionOpen.textContent = "Відкрито";
     const optionDone = document.createElement("option");
-    optionDone.value = "Done";
+    optionDone.value = "done";
     optionDone.textContent = "Завершено";
 
     const inputAge = document.createElement("input");
@@ -342,6 +342,15 @@ class TherapistModal extends Modal {
     const optionLow = document.createElement("option");
     optionLow.value = "low";
     optionLow.textContent = "Звичайна";
+
+    if(this.urgency === 'high') {
+      optionHigh.setAttribute('selected', '')
+     }else if(this.urgency === 'normal') {
+      optionNormal.setAttribute('selected', '')
+     }else if(this.urgency === 'low') {
+      optionLow.setAttribute('selected', '')
+     }
+
     const inputFullName = document.createElement("input");
     inputFullName.classList.add("form-control");
     inputFullName.type = "text";
@@ -364,7 +373,7 @@ class TherapistModal extends Modal {
     optionOpen.value = "open";
     optionOpen.textContent = "Відкрито";
     const optionDone = document.createElement("option");
-    optionDone.value = "Done";
+    optionDone.value = "done";
     optionDone.textContent = "Завершено";
 (this.status === 'done' ? optionDone.setAttribute('selected', '') : optionOpen.setAttribute('selected', ''))
 

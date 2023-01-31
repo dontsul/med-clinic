@@ -10,7 +10,7 @@ function createModalWinwow() {
   titleCreateCard.textContent = "Створити візит";
   const formCreateCard = document.createElement("form");
   formCreateCard.classList.add("formCreateCard");
-  formCreateCard.name = 'form';
+  formCreateCard.name = "form";
   const selectDoctor = document.createElement("select");
   selectDoctor.classList.add("form-select");
   selectDoctor.classList.add("doctor-select");
@@ -43,13 +43,13 @@ function createModalWinwow() {
   const closeIcon = document.createElement("img");
   closeIcon.setAttribute("src", "./img/icon-close.png");
   closeIcon.classList.add("closeIcon");
+  closeIconWrap.title = "Закрити";
   closeIconWrap.append(closeIcon);
 
   closeIconWrap.addEventListener("click", (e) => {
     if (e.target === closeIcon) {
       const wrapperElem = document.querySelector(".wrapperElem");
       modalBgCard.classList.add("hide");
-      // selectDoctor.value = "default";
       if (selectDoctor.nextElementSibling !== null) {
         selectDoctor.nextElementSibling.remove();
       }
@@ -101,9 +101,6 @@ chosenDoctor.addEventListener("change", (e) => {
 const btnCreateCard = document.querySelector(".btn-create-card");
 btnCreateCard.addEventListener("click", () => {
   document.querySelector(".modalBgCard").classList.remove("hide");
-
-
-
 });
 //--------------------------------------
 
@@ -121,18 +118,6 @@ function closeModalCreateCard() {
         wrapperElem.remove();
       }
       modalBgCard.classList.add("hide");
-      
-      // const btnCreateCard = document.querySelector(".btn-create-card");
-      // if(btnCreateCard.classList.contains('def')) {
-      //   chosenDoctor.value = 'default'
-      // }
-
-      
-      // btnCreateCard.classList.remove('def');
-      // chosenDoctor.childNodes.forEach((option) => {
-      //   option.removeAttribute("selected");
-      //   console.log(option);
-      // });
     }
   });
 }

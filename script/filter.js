@@ -6,17 +6,34 @@ function filterCards() {
     const urgencyValueFilter = document.querySelector(".urgency").value;
 
     allCards.forEach((card) => {
-      console.log(urgencyValueFilter);
-      console.log(card.urgency);
 
+      //input filter
       if (
-        (card.title.includes(inputValueFilter) && inputValueFilter !== "") ||
-        (card.description.includes(inputValueFilter) &&
-          inputValueFilter !== "") ||
-        card.urgency === urgencyValueFilter
+        card.title.includes(inputValueFilter) ||
+        card.description.includes(inputValueFilter)
       ) {
         document.getElementById(`${card.id}`).classList.remove("hide");
-      } else if(urgencyValueFilter === 'all'){
+      }else{
+        document.getElementById(`${card.id}`).classList.add("hide");
+      }
+
+      // //status filter
+
+
+      if (statusValueFilter === card.status) {
+        document.getElementById(`${card.id}`).classList.remove("hide");
+      } else if (statusValueFilter !== card.status && statusValueFilter !== "all") {
+        document.getElementById(`${card.id}`).classList.add("hide");
+      } else if (statusValueFilter === "all") {
+        document.getElementById(`${card.id}`).classList.remove("hide");
+      }
+
+      //urgencyFilter
+
+      if(card.urgency === urgencyValueFilter) {
+        document.getElementById(`${card.id}`).classList.remove("hide");
+
+      }else if(urgencyValueFilter === 'all') {
         document.getElementById(`${card.id}`).classList.remove("hide");
       }else{
         document.getElementById(`${card.id}`).classList.add("hide");

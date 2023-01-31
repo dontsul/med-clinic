@@ -8,12 +8,9 @@ function loginForm() {
     const btnCreateCard = document.querySelector(".btn-create-card");
     
     btnCreateCard.addEventListener('click', () => {
-     const defaultValueSelectDoctor = document.querySelector('.defaultValueSelectDoctor');
-       defaultValueSelectDoctor.setAttribute('selected', '')
-       btnCreateCard.classList.add('def');
-    // const selectDoctor = document.querySelector("doctor-select");
-    // selectDoctor.value = 'default';
-  
+      const selectDoctor = document.querySelector(".doctor-select");
+      selectDoctor.value = 'default';
+
     })
   
     const incorrectLogin = document.createElement("div");
