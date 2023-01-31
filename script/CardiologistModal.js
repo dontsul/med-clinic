@@ -4,6 +4,7 @@ class CardiologistModal extends Modal {
     description,
     urgency,
     fullName,
+    status,
     pressure,
     bodyMassIndex,
     transferredDiseases,
@@ -11,7 +12,7 @@ class CardiologistModal extends Modal {
     id,
     doctor
   ) {
-    super(purpose, description, urgency, fullName);
+    super(purpose, description, urgency, fullName, status);
 
     this.pressure = pressure; //звичайний тиск
     this.bodyMassIndex = bodyMassIndex; //Індекс маси тіла
@@ -65,6 +66,25 @@ class CardiologistModal extends Modal {
     inputFullName.classList.add("elemForm");
     inputFullName.classList.add("inputFullName");
     inputFullName.setAttribute('required', true);
+
+    const selectStatus = document.createElement("select");
+    selectStatus.classList.add("form-select");
+    selectStatus.setAttribute("aria-label", "Default select example");
+    selectStatus.classList.add("elemForm");
+    selectStatus.classList.add("selectStatus");
+    const optionDefaultStatus = document.createElement("option");
+    optionDefaultStatus.value = "defaultStatus";
+    optionDefaultStatus.textContent = "Статус";
+    optionDefaultStatus.setAttribute('selected', '');
+    optionDefaultStatus.setAttribute('disabled', '');
+    optionDefaultStatus.setAttribute('hidden', '');
+    const optionOpen = document.createElement("option");
+    optionOpen.value = "open";
+    optionOpen.textContent = "Відкрито";
+    const optionDone = document.createElement("option");
+    optionDone.value = "Done";
+    optionDone.textContent = "Завершено";
+
     const inputPressure = document.createElement("input");
     inputPressure.classList.add("form-control");
     inputPressure.type = "text";
@@ -105,7 +125,8 @@ class CardiologistModal extends Modal {
         document.querySelector(".inputDescription").value;
       const inputPurposeValue = document.querySelector(".inputPurpose").value;
       const selectUrgencyValue = document.querySelector(".selectUrgency").value;
-      const inputFullNameValue = document.querySelector(".inputFullName").value;
+      const inputFullNameValue = document.querySelector(".inputFullName").value; 
+      const inputStatusValue = document.querySelector(".selectStatus").value;
       const inputPressureValue = document.querySelector(".inputPressure").value;
       const inputBodyMassIndexValue = document.querySelector(
         ".inputBodyMassIndex"
@@ -129,6 +150,7 @@ class CardiologistModal extends Modal {
           doctor: selectedDoctorValue,
           urgency: selectUrgencyValue,
           fullName: inputFullNameValue,
+          status: inputStatusValue,
           pressure: inputPressureValue,
           bodyMassIndex: inputBodyMassIndexValue,
           transferredDiseases: inputTransferredDiseasesValue,
@@ -167,6 +189,7 @@ class CardiologistModal extends Modal {
                 obj.description,
                 obj.urgency,
                 obj.fullName,
+                obj.status,
                 obj.pressure,
                 obj.bodyMassIndex,
                 obj.transferredDiseases,
@@ -181,11 +204,13 @@ class CardiologistModal extends Modal {
     });
 
     selectUrgency.append(optionDefaul, optionHigh, optionNormal, optionLow);
+    selectStatus.append(optionDefaultStatus, optionOpen, optionDone)
     wrapperElem.append(
       inputPurpose,
       inputDescription,
       selectUrgency,
       inputFullName,
+      selectStatus,
       inputPressure,
       inputBodyMassIndex,
       inputTransferredDiseases,
@@ -217,6 +242,10 @@ class CardiologistModal extends Modal {
     const fullNameElem = document.createElement("p");
     fullNameElem.classList.add("fullNameElem");
     fullNameElem.textContent = this.fullName;
+
+    const statusElem = document.createElement('p');
+    (this.status === 'open' ? statusElem.textContent = 'Відкрито' : statusElem.textContent = 'Завершено');
+
     const pressureElem = document.createElement("p");
     pressureElem.classList.add("pressureElem");
     pressureElem.textContent = this.pressure;
@@ -318,6 +347,7 @@ class CardiologistModal extends Modal {
         card.description,
         card.urgency,
         card.fullName,
+        card.status,
         card.pressure,
         card.bodyMassIndex,
         card.transferredDiseases,
@@ -344,6 +374,7 @@ class CardiologistModal extends Modal {
       descriptionElem,
       pressureElem,
       urgencyElem,
+      statusElem,
       transferredDiseasesElem,
       bodyMassIndexElem,
       ageElem
@@ -409,11 +440,6 @@ class CardiologistModal extends Modal {
     optionLow.value = "low";
     optionLow.textContent = "Звичайна";
 
-
-
-      
-      
-
     const inputFullName = document.createElement("input");
     inputFullName.classList.add("form-control");
     inputFullName.type = "text";
@@ -421,6 +447,25 @@ class CardiologistModal extends Modal {
     inputFullName.classList.add("elemForm");
     inputFullName.classList.add("inputFullName");
     inputFullName.value = this.fullName;
+
+    const selectStatus = document.createElement("select");
+    selectStatus.classList.add("form-select");
+    selectStatus.setAttribute("aria-label", "Default select example");
+    selectStatus.classList.add("elemForm");
+    selectStatus.classList.add("selectStatus");
+    const optionDefaultStatus = document.createElement("option");
+    optionDefaultStatus.value = "defaultStatus";
+    optionDefaultStatus.textContent = "Статус";
+    optionDefaultStatus.setAttribute('disabled', '');
+    optionDefaultStatus.setAttribute('hidden', '');
+    const optionOpen = document.createElement("option");
+    optionOpen.value = "open";
+    optionOpen.textContent = "Відкрито";
+    const optionDone = document.createElement("option");
+    optionDone.value = "Done";
+    optionDone.textContent = "Завершено";
+(this.status === 'done' ? optionDone.setAttribute('selected', '') : optionOpen.setAttribute('selected', ''))
+
     const inputPressure = document.createElement("input");
     inputPressure.classList.add("form-control");
     inputPressure.type = "text";
@@ -476,6 +521,7 @@ class CardiologistModal extends Modal {
       const inputPurposeValue = document.querySelector(".inputPurpose").value;
       const selectUrgencyValue = document.querySelector(".selectUrgency").value;
       const inputFullNameValue = document.querySelector(".inputFullName").value;
+      const inputStatusValue = document.querySelector(".selectStatus").value;
       const inputPressureValue = document.querySelector(".inputPressure").value;
       const inputBodyMassIndexValue = document.querySelector(
         ".inputBodyMassIndex"
@@ -502,6 +548,7 @@ class CardiologistModal extends Modal {
           doctor: selectedDoctorValue,
           urgency: selectUrgencyValue,
           fullName: inputFullNameValue,
+          status: inputStatusValue,
           pressure: inputPressureValue,
           bodyMassIndex: inputBodyMassIndexValue,
           transferredDiseases: inputTransferredDiseasesValue,
@@ -534,6 +581,7 @@ class CardiologistModal extends Modal {
               card.doctor = selectedDoctorValue;
               card.urgency = selectUrgencyValue;
               card.fullName = inputFullNameValue;
+              card.status = inputStatusValue;
               card.pressure = inputPressureValue;
               card.bodyMassIndex = inputBodyMassIndexValue;
               card.transferredDiseases = inputTransferredDiseasesValue;
@@ -551,6 +599,7 @@ class CardiologistModal extends Modal {
             data.description,
             data.urgency,
             data.fullName,
+            data.status,
             data.pressure,
             data.bodyMassIndex,
             data.transferredDiseases,
@@ -572,11 +621,13 @@ class CardiologistModal extends Modal {
     });
 
     selectUrgency.append(optionDefaul, optionHigh, optionNormal, optionLow);
+    selectStatus.append(optionDefaultStatus, optionOpen, optionDone);
     wrapperElem.append(
       inputPurpose,
       inputDescription,
       selectUrgency,
       inputFullName,
+      selectStatus,
       inputPressure,
       inputBodyMassIndex,
       inputTransferredDiseases,

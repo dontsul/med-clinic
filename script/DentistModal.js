@@ -4,11 +4,12 @@ class DentistModal extends Modal {
     description,
     urgency,
     fullName,
+    status,
     dateLastVisit,
     id,
     doctor
   ) {
-    super(purpose, description, urgency, fullName);
+    super(purpose, description, urgency, fullName, status);
 
     this.doctor = doctor;
     this.dateLastVisit = dateLastVisit; //дата останнього відвідування
@@ -54,13 +55,33 @@ class DentistModal extends Modal {
     inputFullName.placeholder = "Введіть повне ПІБ";
     inputFullName.classList.add("elemForm");
     inputFullName.classList.add("inputFullName");
+
+
+    const selectStatus = document.createElement("select");
+    selectStatus.classList.add("form-select");
+    selectStatus.setAttribute("aria-label", "Default select example");
+    selectStatus.classList.add("elemForm");
+    selectStatus.classList.add("selectStatus");
+    const optionDefaultStatus = document.createElement("option");
+    optionDefaultStatus.value = "defaultStatus";
+    optionDefaultStatus.textContent = "Статус";
+    optionDefaultStatus.setAttribute('selected', '');
+    optionDefaultStatus.setAttribute('disabled', '');
+    optionDefaultStatus.setAttribute('hidden', '');
+    const optionOpen = document.createElement("option");
+    optionOpen.value = "open";
+    optionOpen.textContent = "Відкрито";
+    const optionDone = document.createElement("option");
+    optionDone.value = "Done";
+    optionDone.textContent = "Завершено";
+
     const inputDateLastVisit = document.createElement("input");
     inputDateLastVisit.classList.add("form-control");
     inputDateLastVisit.type = "date";
     inputDateLastVisit.placeholder = "Введіть повне ПІБ";
     inputDateLastVisit.classList.add("elemForm");
     inputDateLastVisit.classList.add("inputDateLastVisit");
-    // const doctorValue = documen.querySelector('.selectDoctor').value;
+
     const buttonSubmit = document.createElement("button");
     buttonSubmit.type = "submit";
     buttonSubmit.classList.add("btn");
@@ -76,6 +97,7 @@ class DentistModal extends Modal {
       const inputPurposeValue = document.querySelector(".inputPurpose").value;
       const selectUrgencyValue = document.querySelector(".selectUrgency").value;
       const inputFullNameValue = document.querySelector(".inputFullName").value;
+      const inputStatusValue = document.querySelector(".selectStatus").value;
       const inputDateLastVisitValue = document.querySelector(
         ".inputDateLastVisit"
       ).value;
@@ -92,6 +114,7 @@ class DentistModal extends Modal {
           doctor: selectedDoctorValue,
           urgency: selectUrgencyValue,
           fullName: inputFullNameValue,
+          status: inputStatusValue,
           dateLastVisit: inputDateLastVisitValue,
         }),
       })
@@ -125,6 +148,7 @@ class DentistModal extends Modal {
                 obj.description,
                 obj.urgency,
                 obj.fullName,
+                obj.status,
                 obj.dateLastVisit,
                 obj.id,
                 obj.doctor
@@ -136,11 +160,13 @@ class DentistModal extends Modal {
     });
 
     selectUrgency.append(optionDefaul, optionHigh, optionNormal, optionLow);
+    selectStatus.append(optionDefaultStatus, optionOpen, optionDone)
     wrapperElem.append(
       inputPurpose,
       inputDescription,
       selectUrgency,
       inputFullName,
+      selectStatus,
       inputDateLastVisit,
       buttonSubmit
     );
@@ -166,6 +192,10 @@ class DentistModal extends Modal {
     doctorElem.classList.add("doctorElem");
     const fullNameElem = document.createElement("p");
     fullNameElem.textContent = this.fullName;
+
+    const statusElem = document.createElement('p');
+    (this.status === 'open' ? statusElem.textContent = 'Відкрито' : statusElem.textContent = 'Завершено');
+
     const dateLastVisitElem = document.createElement("p");
     dateLastVisitElem.textContent = this.dateLastVisit;
     const urgencyElem = document.createElement("p");
@@ -187,6 +217,7 @@ class DentistModal extends Modal {
     closeIconWrapCard.append(closeIconCard);
 
     closeIconWrapCard.addEventListener("click", (e) => {
+      console.log(this.id);
       if (e.target === closeIconCard) {
         fetch(`https://ajax.test-danit.com/api/v2/cards/${this.id}`, {
           method: "DELETE",
@@ -222,11 +253,6 @@ class DentistModal extends Modal {
       document.querySelector(".titleCreateCard").textContent =
         "Редагувати візит";
 
-      // const chosenDoctor = document.querySelector(".doctor-select");
-      // chosenDoctor.childNodes.forEach((option) => {
-      //   option.removeAttribute("selected");
-      // });
-
 
       allCards.forEach(card => {
         if(+card.id === +this.id) {
@@ -251,6 +277,7 @@ class DentistModal extends Modal {
         card.description,
         card.urgency,
         card.fullName,
+        card.status,
         card.dateLastVisit,
         e.currentTarget.parentNode.id,
         card.doctor
@@ -273,7 +300,8 @@ class DentistModal extends Modal {
       titleElem,
       descriptionElem,
       dateLastVisitElem,
-      urgencyElem
+      urgencyElem,
+      statusElem,
     );
     card.append(
       closeIconWrapCard,
@@ -342,6 +370,25 @@ class DentistModal extends Modal {
     inputFullName.classList.add("inputFullName");
     inputFullName.value = this.fullName;
 
+
+    const selectStatus = document.createElement("select");
+    selectStatus.classList.add("form-select");
+    selectStatus.setAttribute("aria-label", "Default select example");
+    selectStatus.classList.add("elemForm");
+    selectStatus.classList.add("selectStatus");
+    const optionDefaultStatus = document.createElement("option");
+    optionDefaultStatus.value = "defaultStatus";
+    optionDefaultStatus.textContent = "Статус";
+    optionDefaultStatus.setAttribute('disabled', '');
+    optionDefaultStatus.setAttribute('hidden', '');
+    const optionOpen = document.createElement("option");
+    optionOpen.value = "open";
+    optionOpen.textContent = "Відкрито";
+    const optionDone = document.createElement("option");
+    optionDone.value = "Done";
+    optionDone.textContent = "Завершено";
+(this.status === 'done' ? optionDone.setAttribute('selected', '') : optionOpen.setAttribute('selected', ''))
+
     const inputDateLastVisit = document.createElement("input");
     inputDateLastVisit.classList.add("form-control");
     inputDateLastVisit.type = "date";
@@ -375,6 +422,7 @@ class DentistModal extends Modal {
       const inputPurposeValue = document.querySelector(".inputPurpose").value;
       const selectUrgencyValue = document.querySelector(".selectUrgency").value;
       const inputFullNameValue = document.querySelector(".inputFullName").value;
+      const inputStatusValue = document.querySelector(".selectStatus").value;
       const inputDateLastVisitValue = document.querySelector(
         ".inputDateLastVisit"
       ).value;
@@ -393,6 +441,7 @@ class DentistModal extends Modal {
           doctor: selectedDoctorValue,
           urgency: selectUrgencyValue,
           fullName: inputFullNameValue,
+          status: inputStatusValue,
           dateLastVisit: inputDateLastVisitValue,
         }),
       })
@@ -418,6 +467,7 @@ class DentistModal extends Modal {
               card.doctor = selectedDoctorValue;
               card.urgency = selectUrgencyValue;
               card.fullName = inputFullNameValue;
+              card.status = inputStatusValue;
               card.dateLastVisit = inputDateLastVisitValue;
             }
           });
@@ -431,6 +481,7 @@ class DentistModal extends Modal {
             data.description,
             data.urgency,
             data.fullName,
+            data.status,
             data.dateLastVisit,
             data.id,
             data.doctor
@@ -449,11 +500,13 @@ class DentistModal extends Modal {
     });
 
     selectUrgency.append(optionDefaul, optionHigh, optionNormal, optionLow);
+    selectStatus.append(optionDefaultStatus, optionOpen, optionDone);
     wrapperElem.append(
       inputPurpose,
       inputDescription,
       selectUrgency,
       inputFullName,
+      selectStatus,
       inputDateLastVisit,
       buttonSubmit
     );

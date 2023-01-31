@@ -16,6 +16,7 @@ async function getAllPost() {
           item.description,
           item.urgency,
           item.fullName,
+          item.status,
           item.pressure,
           item.bodyMassIndex,
           item.transferredDiseases,
@@ -29,6 +30,7 @@ async function getAllPost() {
           item.description,
           item.urgency,
           item.fullName,
+          item.status,
           item.dateLastVisit,
           item.id,
           item.doctor
@@ -39,6 +41,7 @@ async function getAllPost() {
           item.description,
           item.urgency,
           item.fullName,
+          item.status,
           item.age,
           item.id,
           item.doctor

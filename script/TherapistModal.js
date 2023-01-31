@@ -1,5 +1,5 @@
 class TherapistModal extends Modal {
-  constructor(purpose, description, urgency, fullName, age, id, doctor) {
+  constructor(purpose, description, urgency, fullName, status, age, id, doctor) {
     super(purpose, description, urgency, fullName);
     this.id = id;
     this.age = age;
@@ -46,6 +46,25 @@ class TherapistModal extends Modal {
     inputFullName.placeholder = "Введіть повне ПІБ";
     inputFullName.classList.add("elemForm");
     inputFullName.classList.add("inputFullName");
+
+    const selectStatus = document.createElement("select");
+    selectStatus.classList.add("form-select");
+    selectStatus.setAttribute("aria-label", "Default select example");
+    selectStatus.classList.add("elemForm");
+    selectStatus.classList.add("selectStatus");
+    const optionDefaultStatus = document.createElement("option");
+    optionDefaultStatus.value = "defaultStatus";
+    optionDefaultStatus.textContent = "Статус";
+    optionDefaultStatus.setAttribute('selected', '');
+    optionDefaultStatus.setAttribute('disabled', '');
+    optionDefaultStatus.setAttribute('hidden', '');
+    const optionOpen = document.createElement("option");
+    optionOpen.value = "open";
+    optionOpen.textContent = "Відкрито";
+    const optionDone = document.createElement("option");
+    optionDone.value = "Done";
+    optionDone.textContent = "Завершено";
+
     const inputAge = document.createElement("input");
     inputAge.classList.add("form-control");
     inputAge.type = "number";
@@ -67,6 +86,7 @@ class TherapistModal extends Modal {
       const inputPurposeValue = document.querySelector(".inputPurpose").value;
       const selectUrgencyValue = document.querySelector(".selectUrgency").value;
       const inputFullNameValue = document.querySelector(".inputFullName").value;
+      const inputStatusValue = document.querySelector(".selectStatus").value;
       const inputAgeValue = document.querySelector(".inputAge").value;
 
       fetch("https://ajax.test-danit.com/api/v2/cards", {
@@ -81,6 +101,7 @@ class TherapistModal extends Modal {
           doctor: selectedDoctorValue,
           urgency: selectUrgencyValue,
           fullName: inputFullNameValue,
+          status: inputStatusValue,
           age: inputAgeValue,
         }),
       })
@@ -115,6 +136,7 @@ class TherapistModal extends Modal {
                 obj.description,
                 obj.urgency,
                 obj.fullName,
+                obj.status,
                 obj.age,
                 obj.id,
                 obj.doctor
@@ -126,11 +148,13 @@ class TherapistModal extends Modal {
     });
 
     selectUrgency.append(optionDefaul, optionHigh, optionNormal, optionLow);
+    selectStatus.append(optionDefaultStatus, optionOpen, optionDone);
     wrapperElem.append(
       inputPurpose,
       selectUrgency,
       inputDescription,
       inputFullName,
+      selectStatus,
       inputAge,
       buttonSubmit
     );
@@ -156,6 +180,10 @@ class TherapistModal extends Modal {
     
     const fullNameElem = document.createElement("p");
     fullNameElem.textContent = this.fullName;
+
+    const statusElem = document.createElement('p');
+    (this.status === 'open' ? statusElem.textContent = 'Відкрито' : statusElem.textContent = 'Завершено');
+
     const urgencyElem = document.createElement("p");
     
     if(this.urgency === 'high') {
@@ -236,6 +264,7 @@ class TherapistModal extends Modal {
         card.description,
         card.urgency,
         card.fullName,
+        card.status,
         card.age,
         e.currentTarget.parentNode.id,
         card.doctor
@@ -253,7 +282,7 @@ class TherapistModal extends Modal {
     });
 
     // кнопка показать больше-------------------
-    additionalBlock.append(titleElem, descriptionElem, urgencyElem, ageElem);
+    additionalBlock.append(titleElem, descriptionElem, urgencyElem, statusElem, ageElem);
     card.append(
       closeIconWrapCard,
       fullNameElem,
@@ -320,6 +349,25 @@ class TherapistModal extends Modal {
     inputFullName.classList.add("elemForm");
     inputFullName.classList.add("inputFullName");
     inputFullName.value = this.fullName;
+
+    const selectStatus = document.createElement("select");
+    selectStatus.classList.add("form-select");
+    selectStatus.setAttribute("aria-label", "Default select example");
+    selectStatus.classList.add("elemForm");
+    selectStatus.classList.add("selectStatus");
+    const optionDefaultStatus = document.createElement("option");
+    optionDefaultStatus.value = "defaultStatus";
+    optionDefaultStatus.textContent = "Статус";
+    optionDefaultStatus.setAttribute('disabled', '');
+    optionDefaultStatus.setAttribute('hidden', '');
+    const optionOpen = document.createElement("option");
+    optionOpen.value = "open";
+    optionOpen.textContent = "Відкрито";
+    const optionDone = document.createElement("option");
+    optionDone.value = "Done";
+    optionDone.textContent = "Завершено";
+(this.status === 'done' ? optionDone.setAttribute('selected', '') : optionOpen.setAttribute('selected', ''))
+
     const inputAge = document.createElement("input");
     inputAge.classList.add("form-control");
     inputAge.type = "number";
@@ -363,6 +411,7 @@ class TherapistModal extends Modal {
       const inputPurposeValue = document.querySelector(".inputPurpose").value;
       const selectUrgencyValue = document.querySelector(".selectUrgency").value;
       const inputFullNameValue = document.querySelector(".inputFullName").value;
+      const inputStatusValue = document.querySelector(".selectStatus").value;
       const inputAgeValue = document.querySelector(".inputAge").value;
       const inputDoctorValue = document.querySelector(".doctor-select").value;
 
@@ -378,6 +427,7 @@ class TherapistModal extends Modal {
           doctor: selectedDoctorValue,
           urgency: selectUrgencyValue,
           fullName: inputFullNameValue,
+          status: inputStatusValue,
           age: inputAgeValue,
           doctor: inputDoctorValue,
         }),
@@ -408,6 +458,7 @@ class TherapistModal extends Modal {
               card.urgency = selectUrgencyValue;
               card.fullName = inputFullNameValue;
               card.age = inputAgeValue;
+              card.status = inputStatusValue;
               card.doctor = inputDoctorValue;
             }
           });
@@ -421,6 +472,7 @@ class TherapistModal extends Modal {
             data.description,
             data.urgency,
             data.fullName,
+            data.status,
             data.age,
             data.id,
             data.doctor
@@ -436,11 +488,13 @@ class TherapistModal extends Modal {
     });
 
     selectUrgency.append(optionDefaul, optionHigh, optionNormal, optionLow);
+    selectStatus.append(optionDefaultStatus, optionOpen, optionDone);
     wrapperElem.append(
       inputPurpose,
       inputDescription,
       selectUrgency,
       inputFullName,
+      selectStatus,
       inputAge,
       buttonSubmit
     );
